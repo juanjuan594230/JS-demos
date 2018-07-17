@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* 给定一个有序数组，和一个数，判断这个数是否存在于这个数组中 */
+    // case1: [2,7,9,9,23,56,98,121,345,456] 23
+    // case2: [], 23
+    // case3: [2,7,9,9,56,98,121,345,456] 23
+    // case4: 稀疏数组
+    const arr = [2,7,9,9,23,56,98,121,345,456];
+    // 二分查找
+    function binarySearch(arr, value) {
+      if (!arr || arr.length === 0) {
+        return false;
+      }
+      let start = 0,
+          end = arr.length - 1,
+          middle = -1;
+      // 第二处
+      while(start <= end) {
+        // 第一处
+        middle = Math.ceil((start + end) / 2);
+        // console.log(start + ' ' + end +  ' ' + middle);
+        const midValue = arr[middle];
+        // 往前找
+        if (midValue > value) {
+          end = middle - 1;
+        }
+        // 往后找
+        else if (midValue < value) {
+          start = middle + 1;
+        } 
+        else {
+          return true;
+        }
+      }
+      return false;
+    }
+    console.log(binarySearch(arr, 9));
+
+    /* 二分查找应用：给定一个有序数组和一个数， 返回这个数在数组中第一次出现的index */
+    function getIndex(arr, value) {
+      let minIndex = -1;
+      if (!arr || arr.length === 0) {
+        return minIndex;
+      }
+      let start = 0,
+          end = arr.length - 1;
+      while(start <= end) {
+        const middle = Math.ceil((start + end) / 2);
+        const midValue = arr[middle];
+        if (midValue > value) {
+          end = middle - 1;
+        } else if (midValue < value) {
+          start = middle + 1;
+        } else {
+          minIndex = middle;
+          end = middle -1;
+        }
+      }
+      return minIndex;
+    }
+    console.log(getIndex(arr, 9));
+    console.log(getIndex([9,9,9,9,9,9,9], 9));
+    console.log(getIndex(arr, 78));
+    console.log(getIndex([], 78));
+  </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var pubsub = {};
+    (function(q) {
+      const topics = {};
+      
+      q.subscribe = function(topic, fn) {
+        if (!topics[topic]) {
+          topics[topic] = [];
+        }
+        const token = new Date().getTime();
+        topics[topic].push({
+          token,
+          fn
+        });
+        return token;
+      }
+
+      q.publish = function(topic, args) {
+        if (!topics[topic]) {
+          return;
+        }
+        const subscribes = topics[topic];
+        let len = subscribes ? subscribes.length : 0;
+        while(len--) {
+          subscribes[len].fn(topic, args);
+        }
+      }
+
+      q.unsubscribe = function(topic, token) {
+        if (topics[topic] && topics[topic].length > 0) {
+          for (var j = 0, len = topics[topic].length; j < len; j++) {
+            if (topics[topic][j].token === token) {
+              topics[topic].splice(j, 1);
+              return token;
+            }
+          }
+        }
+        return false
+      }
+    }(pubsub));
+
+    //来，订阅一个
+    const token1 = pubsub.subscribe('example1', function (topics, data) {
+        console.log(topics + ": " + data);
+    });
+    pubsub.unsubscribe('example1', token1);
+    const token2 = pubsub.subscribe('example1', function (topics, data) {
+        console.log(topics + ": " + data);
+    });
+
+    //发布通知
+    pubsub.publish('example1', 'hello world!');
+    pubsub.publish('example1', ['test', 'a', 'b', 'c']);
+    pubsub.publish('example1', [{ 'color': 'blue' }, { 'text': 'hello'}]);
+
+    
+  </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const originObj = {
+      a: 1,
+      b: ['e', 'f', 'g'],
+      c: {
+        h: {
+          i: 2
+        }
+      },
+      
+    }
+
+    /* 浅拷贝 */
+    // function shallowClone(o) {
+    //   const obj = {};
+    //   for (let i in o) {
+    //     obj[i] = o[i];
+    //   }
+    //   return obj;
+    // }
+    // const newObj = shallowClone(originObj);
+    // newObj.b.push('j');
+    // console.log(originObj);
+    // console.log(newObj.b === originObj.b);
+    // console.log(newObj.c === originObj.c);
+
+    /* Object.assign() */
+    // const obj1 = Object.assign({}, originObj);
+    // console.log(obj1);
+    // obj1.b.push('m');
+    // console.log(obj1.b === originObj.b);
+
+    /* 深拷贝-JSON */
+    function deepCloneJson(o) {
+      return JSON.parse(JSON.stringify(o));
+    }
+    const obj2 = deepCloneJson(originObj);
+    console.log(obj2.b === originObj.b);   // false
+    console.log(obj2);
+    // console.log(originObj);
+  </script>
+</body>
+</html>

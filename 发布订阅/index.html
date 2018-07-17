@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* 简单的订阅发布模式 */
+    // const sgQuestionSystem = {};
+    // sgQuestionSystem.clientList = {};
+    // // 监听
+    // sgQuestionSystem.listen = function(type, fn) {
+    //   if (!sgQuestionSystem.clientList[type]) {
+    //     sgQuestionSystem.clientList[type] = [];
+    //   }
+    //   sgQuestionSystem.clientList[type].push({
+    //     type,
+    //     fn
+    //   });
+    // }
+    // // 发布
+    // sgQuestionSystem.trigger = function() {
+    //   // shift 移除数组中的第一项，并返回该项
+    //   const _this = this;
+    //   const type = Array.prototype.shift.call(arguments);
+    //   const fns = sgQuestionSystem.clientList[type];
+    //   if (!fns || fns.length === 0) {
+    //     return false;
+    //   }
+    //   fns.forEach((item, index) => {
+    //     item.fn.apply(_this, arguments)
+    //   });
+    // }
+    // sgQuestionSystem.listen('a', function(questionTitle, content) {
+    //   console.log('renyujuan您在早上订阅了问题：a');
+    //   console.log('现' + questionTitle + '在有了新动态');
+    //   console.log('内容为：' + content);
+    // });
+    // sgQuestionSystem.listen('a', function(questionTitle, content) {
+    //   console.log('liuyiqiang您在早上订阅了问题：a');
+    //   console.log('现' + questionTitle + '在有了新动态');
+    //   console.log('内容为：' + content);
+    // });
+    // sgQuestionSystem.listen('b', function(questionTitle, content) {
+    //   console.log('renyujuan您在早上订阅了问题：b');
+    //   console.log('现' + questionTitle + '在有了新动态');
+    //   console.log('内容为：' + content);
+    // });
+    // console.log(sgQuestionSystem.clientList);
+    // sgQuestionSystem.trigger('a', '问题a', '王五回答了问题A');
+    // sgQuestionSystem.trigger('b', '问题b', '王五回答了问题B');
+
+    /* 发布订阅模块 */
+    // const publishSubscribeEvent = {
+    //   clientList: {},
+    //   listen,
+    //   trigger
+    // }
+    // function listen(type, fn) {
+    //   if (!this.clientList[type]) {
+    //     this.clientList[type] = [];
+    //   }
+    //   this.clientList[type].push({
+    //     type,
+    //     fn,
+    //     id: new Date().getTime()
+    //   })
+    // }
+    // function trigger() {
+    //   const _this = this;
+    //   const type = Array.prototype.shift.call(arguments);
+    //   const typeList = this.clientList[type] || [];
+    //   if (typeList.length === 0) {
+    //     return false;
+    //   }
+    //   typeList.forEach((item) => {
+    //     item.fn.apply(_this, arguments);
+    //   });
+    // }
+    // // 动态安装发布订阅功能
+    // function installPublishSubscribeEvent(obj) {
+    //   for(var i in publishSubscribeEvent) {
+    //     obj[i] = publishSubscribeEvent[i];
+    //   }
+    // }
+    // // 问题系统
+    // const sgQuestionSystem = {};
+    // // 文章系统
+    // const sgArticleSystem = {};
+    // installPublishSubscribeEvent(sgArticleSystem);
+    // // 张三订阅文章A动态
+    // sgArticleSystem.listen('articleA', function(articleTitle, content) { 
+    //     console.log('张三您在早前订阅了文章：articleA');
+    //     console.log('现' + articleTitle+ '有了新动态');
+    //     console.log('内容为：' + content);
+    // });
+
+    // // 李四订阅文章A动态
+    // sgArticleSystem.listen('articleA', function(articleTitle, content) { 
+    //     console.log('李四您在早前订阅了文章：articleA');
+    //     console.log('现' + articleTitle+ '有了新动态');
+    //     console.log('内容为：' + content);
+    // });
+
+    // // 李四订阅文章B动态
+    // sgArticleSystem.listen('articleB', function(articleTitle, content) { 
+    //     console.log('李四您在早前订阅了文章：articleB');
+    //     console.log('现' + articleTitle+ '有了新动态');
+    //     console.log('内容为：' + content);
+    // });
+
+    // // 文章系统发布消息
+    // sgArticleSystem.trigger('articleA', 'JavaScript设计模式之发布-订阅模式', '作者修改了文章');
+    // sgArticleSystem.trigger('articleB', 'JavaScript设计模式之策略模式', '王五用户评论了该文章');
+  </script>
+</body>
+</html>

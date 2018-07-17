@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* 工厂模式 */
+    // function createAnimal(category, name) {
+    //   const a = new Object();
+    //   a.category = category;
+    //   a.name = name;
+    //   return a;
+    // }
+    // const cat = createAnimal('cat', 'mimi');
+
+    /* 构造函数模式, 每一个对象都包含不同的sayName实例*/
+    // function Animal(category, name) {
+    //   this.category = category;
+    //   this.name = name;
+    //   this.sayName = function() {
+    //     alert(this.name);
+    //   }
+    // }
+    // const a1 = new Animal('cat', 'mimi');
+    // const a2 = new Animal('dog', 'wangwang');
+    // a1.sayName();
+    // alert(a1 instanceof Animal);
+    // a2.sayName();
+
+    /* 原型模式 */
+    // function Person() {
+
+    // }
+    // Person.prototype.name = 'renyujuan';
+    // Person.prototype.age = 28;
+    // Person.prototype.sayName = function() {
+    //   alert(this.name);
+    // }
+    // const p1 = new Person();
+    // const p2 = new Person();
+    // console.log(Person.prototype.isPrototypeOf(p1));
+    // console.log(Object.getPrototypeOf(p1));
+    // p1.sayName();
+    // p2.sayName();
+
+    /* 原型模式 & 构造函数模式 */
+    function Person(name, age) {
+      this.name = name;
+      this.age = age;
+    }
+    Person.prototype.sayName = function() {
+      alert(this.name);
+    }
+    const p1 = new Person('renyujuan', 27);
+    const p2 = new Person('liuyiqiang', 26);
+    console.log(p1.hasOwnProperty('name'));
+    console.log(p1.hasOwnProperty('sayName'));
+    for (let attr in p1) {
+      if (isPrototypeProperty(p1, attr)) {
+        console.log(attr);
+      }
+    }
+    // 判断原型属性的方法
+    function isPrototypeProperty(object, name) {
+      return (name in object) && !(object.hasOwnProperty(name));
+    }
+    // Object.keys()返回一个对象的可枚举属性
+    const keys = Object.keys(p1);
+    console.log(keys);
+    const properties = Object.getOwnPropertyNames(p1);
+    console.log(properties);
+    // p1.sayName();
+    // p2.sayName();
+  </script>
+</body>
+</html>

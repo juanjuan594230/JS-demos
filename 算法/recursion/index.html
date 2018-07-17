@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div class="part1">
+    <div class="part1-1">
+      <span>test</span>
+    </div>
+    <div class="part1-2">
+    </div>
+  </div>
+  <div class="part2">
+    <span id="goal">我是目标</span>
+  </div>
+  <script>
+    /* 递归实现 */
+    // function getElementById(node, id) {
+    //   if (!node) {
+    //     return null;
+    //   }
+    //   if (node.id === id) {
+    //     return node;
+    //   }
+    //   const list = node.childNodes;
+    //   for (let i = 0, len = list.length; i < len; i++) {
+    //     const found = getElementById(list[i], id);
+    //     if (found) {
+    //       return found;
+    //     }
+    //   }
+    // }
+    // console.log(getElementById(document, 'goal'));
+
+    /* 非递归实现 */
+    function getElementById(node, id) {
+      while(node) {
+        if (node.id === id) {
+          return node;
+        }
+        node = nextElement(node);
+      }
+      return null;
+    }
+
+    function nextElement(node) {
+      if (node.childNodes.length) {
+        return node.childNodes[0];
+      }
+      if (node.nextSibling) {
+        return node.nextSibling;
+      }
+      while(node.parentNode) {
+        if (node.parentNode.nextSibling) {
+          return node.parentNode.nextSibling;
+        }
+        node = node.parentNode;
+      }
+      return null;
+    }
+    console.log(getElementById(document, 'goal'));
+  </script>
+</body>
+</html>
