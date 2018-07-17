@@ -13,8 +13,8 @@
     const arr2 = [1,22,57,67,34,4,78,56];
     /* 求交集 */
     /* 第一版 */
-    // function union(arr1, arr2) {
-    //   const union = [];
+    // function section(arr1, arr2) {
+    //   const section = [];
     //   if (!arr1.length) {
     //     return !arr2 ? false : arr2;
     //   }
@@ -24,12 +24,12 @@
     //   for (let i=0, len1=arr1.length; i<len1; i++) {
     //     for (let j=0, len2=arr2.length; j<len2; j++) {
     //       if (arr1[i] === arr2[j]) {
-    //         union.push(arr1[i]);
+    //         section.push(arr1[i]);
     //         break;
     //       }
     //     }
     //   }
-    //   return deleteRepeat(union);
+    //   return deleteRepeat(section);
     // }
 
     // function deleteRepeat(arr) {
@@ -76,9 +76,9 @@
         return 0;
       }
     }
-    function union(arr1, arr2) {
+    function section(arr1, arr2) {
       const obj = {};
-      const union = [];
+      const section = [];
       if (!arr1.length) {
         return !arr2 ? false : arr2;
       }
@@ -90,12 +90,12 @@
         const index = getIndex(arr2, arr1[i]);
         if (index !== -1 && !obj[arr2[index]]) {
           obj[arr2[index]] = true;
-          union.push(arr2[index]);
+          section.push(arr2[index]);
         }
       }
-      return union;
+      return section;
     }
-    console.log(union(arr1, arr2));
+    console.log(section(arr1, arr2));
   </script>
 </body>
 </html>
