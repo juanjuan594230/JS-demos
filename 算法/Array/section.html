@@ -5,74 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <script src="../../util/index.js"></script>
 </head>
 <body>
   <script>
-
-    const arr1 = [1,34,56,23,4,56,4,1];
-    const arr2 = [1,22,57,67,34,4,78,56];
+    function createArr(num) {
+       const arr = new Array(num);
+       for (let i=0; i<num; i++) {
+         arr[i] = Math.floor(Math.random() * num + 1);
+       }
+       return arr;
+    }
+    const arr1 = createArr(10000);
+    const arr2 = createArr(10000);
     /* 求交集 */
     /* 第一版 */
-    // function section(arr1, arr2) {
-    //   const section = [];
-    //   if (!arr1.length) {
-    //     return !arr2 ? false : arr2;
-    //   }
-    //   if (!arr2.length) {
-    //     return !arr1 ? false : arr1;
-    //   }
-    //   for (let i=0, len1=arr1.length; i<len1; i++) {
-    //     for (let j=0, len2=arr2.length; j<len2; j++) {
-    //       if (arr1[i] === arr2[j]) {
-    //         section.push(arr1[i]);
-    //         break;
-    //       }
-    //     }
-    //   }
-    //   return deleteRepeat(section);
-    // }
-
-    // function deleteRepeat(arr) {
-    //   const obj = {};
-    //   const arrNew = [];
-    //   for (let i = 0, len = arr.length; i < len; i++) {
-    //     if (!obj[arr[i]]) {
-    //       obj[arr[i]] = true;
-    //       arrNew.push(arr[i]);
-    //     }
-    //   }
-    //   return arrNew;
-    // }
-    // console.log(union(arr1, arr2));
-
-    /* 第二版 时间复杂度仍为o(n^2)*/
-    function binarySearch(arr, value) {
-      if (!arr || arr.length === 0) {
-        return false;
+    function section(arr1, arr2) {
+      const section = [];
+      if (!arr1.length) {
+        return !arr2 ? false : arr2;
       }
-      let start = 0,
-          end = arr.length - 1,
-          middle = -1;
-      // 第二处
-      while(start <= end) {
-        // 第一处
-        middle = Math.ceil((start + end) / 2);
-        // console.log(start + ' ' + end +  ' ' + middle);
-        const midValue = arr[middle];
-        // 往前找
-        if (midValue > value) {
-          end = middle - 1;
-        }
-        // 往后找
-        else if (midValue < value) {
-          start = middle + 1;
-        } 
-        else {
-          return true;
+      if (!arr2.length) {
+        return !arr1 ? false : arr1;
+      }
+      for (let i=0, len1=arr1.length; i<len1; i++) {
+        for (let j=0, len2=arr2.length; j<len2; j++) {
+          if (arr1[i] === arr2[j]) {
+            section.push(arr1[i]);
+            break;
+          }
         }
       }
-      return false;
+      const endTime = new Date().getTime();
+      return deleteRepeat(section);
     }
+    const startTime = new Date().getTime();
+    console.log(section(arr1, arr2));
+    console.log(new Date().getTime() - startTime);
+
+    /* 第二版 时间复杂度为o(n*lgn)*/
     function compare(value1, value2) {
       if (value1 > value2) {
         return 1;
@@ -82,7 +53,7 @@
         return 0;
       }
     }
-    function section(arr1, arr2) {
+    function section1(arr1, arr2) {
       const obj = {};
       const section = [];
       if (!arr1.length) {
@@ -101,7 +72,49 @@
       }
       return section;
     }
-    console.log(section(arr1, arr2));
+    const startTime1 = new Date().getTime();
+    console.log(section1(arr1, arr2));
+    console.log(new Date().getTime() - startTime1);
+
+    /* 第三版 */
+    function parseObj(arr) {
+      const obj = {};
+      arr.forEach((item, index)=> {
+        if (!obj[item]) {
+          obj[item] = true;
+        }
+      });
+      return obj;
+    }
+
+    function section2(arr1, arr2) {
+      const section = [];
+      if (!arr1.length) {
+        return !arr2 ? false : arr2;
+      }
+      if (!arr2.length) {
+        return !arr1 ? false : arr1;
+      }
+      const obj2 = parseObj(arr2);
+      for (let i=0, len1=arr1.length; i<len1; i++) {
+        if (obj2[arr1[i]]) {
+          section.push(arr1[i]);
+        }
+      }
+      return deleteRepeat(section);
+    }
+    const startTime2 = new Date().getTime();
+    console.log(section2(arr1, arr2));
+    console.log(new Date().getTime() - startTime2);
+
+    /* 第四版 */
+    function intersection(nums1, nums2) {
+      const set = new Set(nums1);
+      return [...new Set(nums2.filter(n => set.has(n)))];
+    }
+    const startTime3 = new Date().getTime();
+    console.log(intersection(arr1, arr2));
+    console.log(new Date().getTime() - startTime3);
   </script>
 </body>
 </html>
