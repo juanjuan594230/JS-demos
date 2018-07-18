@@ -12,7 +12,7 @@
   <script>
     function timeout(ms, message) {
       const promise = new Promise(function (reslove, reject) {
-        setTimeout(reslove, ms, message);
+        setTimeout(reslove(message), ms);
       })
       return promise;
     }

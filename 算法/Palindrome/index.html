@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // var isPalindrome = function(x) {
+        //     if (typeof x !== 'number') {
+        //         return false;
+        //     }
+        //     const arr = (x + '').split('');
+        //     let start = 0;
+        //     let end = arr.length -1;
+        //     while(start <= end) {
+        //         if (arr[start] === arr[end]) {
+        //             start++;
+        //             end--;
+        //         } else {
+        //             return false;
+        //         }
+        //     }
+        //     return true;
+        // };
+        
+
+        var isPalindrome = function(x) {
+            console.log(x);
+            console.log(x % 10);
+            if (typeof x !== 'number' || x < 0 || (x % 10 === 0 && x !== 0)) {
+                return false;
+            }
+            if (x === 0) {
+                return true;
+            }
+            let reversedNum = 0;
+            while (x > reversedNum) {
+                reversedNum = reversedNum * 10 +  x % 10;
+                x = x / 10;
+            }
+            
+            return x === reversedNum || x === reversedNum / 10;
+        };
+        console.log(isPalindrome(0110, 10));
+    </script>
+</body>
+</html>

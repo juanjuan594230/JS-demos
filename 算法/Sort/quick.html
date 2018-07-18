@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var arr = [1, 5, 8, 23, 19, 4, 16, 9, 13, 45, 34, 7];
+        function part(arr, start, end) {
+            const flag = arr[start];
+            while (start < end) {
+                while(arr[end]>flag && start < end){
+                    end--;
+                }
+                if (start < end) {
+                    arr[start]=arr[end];
+                    start++;
+                }
+                while (arr[start]<flag && start < end) {
+                    start++;
+                }
+                if (start < end) {
+                    arr[end] = arr[start];
+                    end--;
+                }
+            }
+            arr[start] = flag;
+            return start;
+        }
+        function quickSort(arr, start, end) {
+            if (!arr || arr.length <= 1) {
+                return arr;
+            }
+            if (start < end) {
+                const index = part(arr, start, end);
+                quickSort(arr, start, index -1);
+                quickSort(arr, index + 1, end);
+            }
+        }
+        quickSort(arr, 0, arr.length -1);
+        console.log(arr);
+    </script>
+</body>
+</html>
