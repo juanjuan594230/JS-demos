@@ -40,8 +40,45 @@
                 quickSort(arr, index + 1, end);
             }
         }
-        quickSort(arr, 0, arr.length -1);
-        console.log(arr);
+        // quickSort(arr, 0, arr.length -1);
+        // console.log(arr);
+        function swap(arr, i, j) {
+            const temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+
+        function partition(arr, start, end) {
+            const len = arr.length;
+            if (!arr || len <= 0 || start < 0 || end >= len) {
+                return false;
+            }
+            let small = start - 1;
+            for (let index = start; index < end; index++) {
+                if (arr[index] < arr[end]) {
+                    small++;
+                    if (small !== index) {
+                        swap(arr, index, small);
+                    }
+                }
+            }
+            small++;
+            swap(arr, small, end);
+            console.log(small);
+            console.log(arr);
+            return small;
+        }
+
+        function quickSort1(arr, start, end) {
+            if (start >= end) {
+                return;
+            }
+            const index = partition(arr, start, end);
+            quickSort1(arr, start, index -1);
+            quickSort1(arr, index + 1, end);
+        }
+
+        quickSort1(arr, 0, arr.length - 1);
     </script>
 </body>
 </html>
