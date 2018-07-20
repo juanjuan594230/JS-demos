@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const arr = [1,5,8,3,5,8];
+    
+    // forEach
+    function forEach_ryj(arr, fn) {
+      if (!arr || !arr.length) {
+        return;
+      }
+      for (let i = 0; i < arr.length; i++) {
+        fn.call(arr, arr[i], i);
+      }
+    }
+
+    // forEach_ryj(arr, (item, index) => {
+    //   console.log(item + '_' + index);
+    // })
+
+    // map
+    function map_ryj(arr, fn) {
+      const _arr = [];
+      if (!arr || !arr.length || typeof fn !== 'function') {
+        return;
+      }
+      for (let i = 0, len = arr.length; i < len; i++) {
+        if (i in arr) {
+          _arr[i] = fn.call(arr, arr[i], i);
+        }
+      }
+      return _arr;
+    }
+
+    // const arrDouble = map_ryj(arr, (item) => {
+    //   return item * 2;
+    // })
+    // console.log(arrDouble);
+
+    // filter
+    function filter_ryj(arr, fn) {
+      const _arr = [];
+      if (!arr || !arr.length || typeof fn !== 'function') {
+        return;
+      }
+      for (let i = 0, len = arr.length; i < len; i++) {
+        if (i in arr) {
+          const flag = fn.call(arr, arr[i], i);
+          if (flag) {
+            _arr.push(arr[i]);
+          }
+        }
+      }
+      return _arr;
+    }
+
+    // const arrFilter = filter_ryj(arr, (item) => {
+    //   return item > 3;
+    // })
+    // console.log(arrFilter);
+
+    // reduce 数组中的前项和后项做某种计算，并累计最终值
+    function reduce_ryj(arr, fn, init) {
+      if (!arr || !arr.length || typeof fn !== 'function') {
+        return;
+      }
+      let result = init;
+      for (let i = 0, len = arr.length; i < len; i++) {
+        if (i in arr) {
+          result = fn.call(arr, result,  arr[i]);
+        }
+      }
+      return result;
+    }
+    // const result = reduce_ryj(['a', 'b', 'c', 'd', 'e'], (prev, next) => {
+    //   console.log(prev + '_' + next);
+    //   return prev * next;
+    // })
+    // console.log(result);
+
+    function every_ryj(arr, fn) {
+      if (!arr || !arr.length || typeof fn !== 'function') {
+        return;
+      }
+      let result;
+      for (let i = 0, len = arr.length; i < len; i++) {
+        if (i in arr) {
+          result = fn.call(arr, arr[i], i);
+          if (!result) {
+            return result;
+          }
+        }
+      }
+      return result;
+    }
+    // console.log(every_ryj(arr, (item) => {
+    //   return item > 1;
+    // }))
+
+    function some_ryj(arr, fn) {
+      if (!arr || !arr.length || typeof fn !== 'function') {
+        return;
+      }
+      let result;
+      for (let i = 0, len = arr.length; i < len; i++) {
+        if (i in arr) {
+          result = fn.call(arr, arr[i], i);
+          if (result) {
+            return result;
+          }
+        }
+      }
+      return result;
+    }
+    console.log(some_ryj(arr, (item) => {
+      return item < 0;
+    }));
+  </script>
+</body>
+</html>

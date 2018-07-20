@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+      var arr = [1, 5, 8, 23, 19, 4, 16, 9, 13, 45, 34, 7];
+      const arr1 = ['1', '11', '2', '3', '234', '223', '2345', '234'];
+      function swap(arr = [], i , j) {
+        const temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+      }
+      function partition(arr = [], start, end, fn) {
+        const len = arr.length;
+        if (len === 0 || start < 0 || end >= len) {
+          return;
+        }
+        let small = start -1;
+        for (let index = start; index < end; index++) {
+          if (fn.call(arr, arr[index], arr[end]) < 0) {
+            small++;
+            if (index !== small) {
+              swap(arr, index, small);
+            }
+          }
+        }
+        small++;
+        swap(arr, small, end);
+        return small;
+      }
+      function quickSort(arr, start, end, fn) {
+        if (start >= end) {
+          return;
+        }
+        const index = partition(arr, start, end, fn);
+        quickSort(arr, start, index - 1, fn);
+        quickSort(arr, index + 1, end, fn);
+      }
+
+      // 字符串比较器
+      function _compare(a, b) {
+        const arrA = (a + '').split('');
+        const arrB = (b + '').split('');
+        const lenA = arrA.length;
+        const lenB = arrB.length;
+        const lenMin = lenA > lenB ? lenB : lenA;
+        let index = 0;
+        while (index < lenMin) {
+          const c1 = arrA[index].charCodeAt();
+          const c2 = arrB[index].charCodeAt();
+          if (c1 !== c2) {
+            return c1 - c2;
+          }
+          index++;
+        }
+        return lenA -lenB;
+      }
+
+      function sort_ryj(arr = [], fn = _compare) {
+        if (arr.length <= 1) {
+          return;
+        }
+        quickSort(arr, 0, arr.length-1, fn);
+      }
+
+      sort_ryj(arr, (a,b) => a - b);
+      sort_ryj(arr);
+  </script>
+</body>
+</html>
