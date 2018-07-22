@@ -8,12 +8,69 @@
 </head>
 <body>
     <script>
+        function swap(arr = [], i , j) {
+            const temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+        function partition(arr, start, end) {
+            // end的值要小于arr.length
+            if (!arr || !arr.length || start < 0 || end >= arr.length) {
+                return;
+            }
+            // 选择分治区域的最后一项最为靶值
+            const flagValue = arr[end];
+            // small代表的是，最后一个比靶值小的数的索引
+            let small = start - 1;
+            for (let index = start; index < end; index++) {
+                if (arr[index] < flagValue) {
+                    small++;
+                    // 当small和index不相等的时候，则证明在small和index的中间的数都比靶值大，那么需要将当前数index与small++位置上的数交换
+                    if (index !== small) {
+                        swap(arr, index, small);
+                    }
+                }
+            }
+            // small++即为耙值的位置
+            small++;
+            swap(arr, small, end);
+            return small;
+        }
+
+        function quickSort(arr, start, end) {
+            if (start >= end) {
+            return; 
+            }
+            const index = partition(arr, start, end);
+            quickSort(arr, start, index -1);
+            quickSort(arr, index + 1, end);
+        }
         var arr = [1, 5, 8, 23, 19, 4, 16, 9, 13, 45, 34, 7];
+
         function getSumK(arr, k) {
+            const temp = [];
             if (!arr || arr.length < 2) {
                 return false;
             }
+            quickSort(arr, 0, arr.length-1);
+            let start = 0,
+                end = arr.length - 1;
+            while (start < end) {
+                const v1 = arr[start],
+                      v2 = arr[end];
+                if (v1 + v2 > k) {
+                    end--;
+                } else if (v1 + v2 < k) {
+                    start++;
+                } else {
+                    temp.push(v1, v2);
+                    start++;
+                    end--;
+                }
+            }
+            return temp;
         }
+        console.log(getSumK(arr, 24));
     </script>
 </body>
 </html>
