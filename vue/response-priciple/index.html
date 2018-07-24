@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <form>
+      <input type="text" v-model="number">
+      <!-- <button v-click="increment">add</button> -->
+    </form>
+    <h3 v-bind="number"></h3>
+  </div>
+  <script src='js/observer.js'></script>
+  <script>
+    window.onload = function() {
+      const data = {
+        name: 'renyujuan'
+      }
+      /* 栈溢出 */
+      // for (let attr in data) {
+      //   Object.defineProperty(data, attr, {
+      //     configurable: true,
+      //     enumerable: true,
+      //     get: function() {
+      //       return data[attr];
+      //     },
+      //     set: function(newVal) {
+      //       console.log(`name值修改了`);
+      //       // 此处这样写，会导致再调用该属性的set，造成死循环
+      //       data[attr] = newVal;
+      //     }
+      //   });
+      // }
+      for (let attr in data) {
+        let value = data[attr];
+        Object.defineProperty(data, attr, {
+          configurable: true,
+          enumerable: true,
+          get: function() {
+            return value;
+          },
+          set: function(newVal) {
+            console.log(`${attr}值修改了`);
+            value = newVal;
+          }
+        });
+      }
+      console.log(Object.getOwnPropertyDescriptor(data, 'name'));
+      data.name = 'ren';
+      // var app = new myVue({
+      //   el:'#app',
+      //   data: {
+      //     number: 0
+      //   },
+      //   methods: {
+      //     increment: function() {
+      //       console.log('increment方法调用了');
+      //       console.log(this);
+      //       this.number += 2;
+      //     }
+      //   }
+      // });
+    }
+  </script>
+</body>
+</html>
