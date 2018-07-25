@@ -47,6 +47,29 @@ function getNodeK1(head, k) {
   return nodeArr[len - k];
 }
 
+function FindKthToTail(head, k)
+{
+    if (!head || typeof k !== 'number' || k <= 0) {
+        return null;
+    }
+    let pre = head,
+        next = head;
+    while (k - 1 > 0) {
+        if (!pre.next) {
+          return null;
+        }
+        pre = pre.next;
+        k--;
+    }
+    while (pre.next) {
+        pre = pre.next;
+        next = next.next;
+    }
+    return next;
+}
+
+console.log(FindKthToTail(first, 1));
+
 // console.log(getNodeK1(first, 5));
 
 /* 给定一个链表，判断是否有环 */
@@ -98,7 +121,26 @@ function getEnter(node) {
   return null;
 }
 
-console.log(getEnter(first));
+
+function EntryNodeOfLoop(pHead)
+{
+    if (!pHead) {
+        return pHead;
+    }
+    const set = new Set();
+    while (pHead) {
+        const flag = set.has(pHead);
+        if (!flag) {
+            set.add(pHead);
+            pHead = pHead.next;
+        } else {
+            return pHead;
+        }
+    }
+    return null;
+}
+
+// console.log(getEnter(first));
 
 /* 在一个排序的链表中，存在重复的结点，请删除该链表中重复的结点，重复的结点不保留，返回链表头指针。 例如，链表1->2->3->3->3->4->4->5 处理后为 1->2->5 */
 function deleteRepeat(head) {
