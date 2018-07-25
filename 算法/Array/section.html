@@ -16,8 +16,10 @@
        }
        return arr;
     }
-    const arr1 = createArr(10000);
-    const arr2 = createArr(10000);
+    const arr1 = createArr(10);
+    const arr2 = createArr(10);
+    console.log(arr1);
+    console.log(arr2);
     /* 求交集 */
     /* 第一版 */
     function section(arr1, arr2) {
@@ -75,6 +77,26 @@
     const startTime1 = new Date().getTime();
     console.log(section1(arr1, arr2));
     console.log(new Date().getTime() - startTime1);
+    
+    // 复习使用二分查找
+    function section_binary(arr1, arr2) {
+      const section = [];
+      if (!arr1.length || !arr2.length) {
+        return [];
+      }
+      arr2.sort((a, b) => a - b);
+      for (let i = 0, len = arr1.length; i < len;  i++) {
+        const flag = binarySearch(arr2, arr1[i]);
+        if (flag) {
+          section.push(arr1[i]);
+        }
+      }
+      return deleteRepeat(section);
+    }
+
+    const startTime4 = new Date().getTime();
+    console.log(section_binary(arr1, arr2));
+    console.log(new Date().getTime() - startTime4);
 
     /* 第三版 */
     function parseObj(arr) {
@@ -89,11 +111,8 @@
 
     function section2(arr1, arr2) {
       const section = [];
-      if (!arr1.length) {
-        return !arr2 ? false : arr2;
-      }
-      if (!arr2.length) {
-        return !arr1 ? false : arr1;
+      if (!arr1.length || !arr2.length) {
+        return [];
       }
       const obj2 = parseObj(arr2);
       for (let i=0, len1=arr1.length; i<len1; i++) {
