@@ -1,0 +1,15 @@
+ES6 对象 object
+
+1. 对象中属性与方法的简写 
+const name = 'renyujuan';
+{
+  name,         // 变量名为属性名，变量值为属性值
+  sayName() {}  // sayName: function() {...}
+}
+
+2. /* 1-2属性名表达式   用表达式的方式做属性名 */
+obj['a' + 'bc'] = 'abc';
+
+3. /* 1-3 方法的name属性 */
+
+4. /* Object.is() 用来比较两个值是否相等  与===行为基本一致 */
