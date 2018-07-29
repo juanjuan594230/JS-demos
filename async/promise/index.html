@@ -9,10 +9,13 @@
 </head>
 
 <body>
+  <script src="./demo.js"></script>
   <script>
     function timeout(ms, message) {
       const promise = new Promise(function (reslove, reject) {
-        setTimeout(reslove(message), ms);
+        setTimeout(() => {
+          reslove(message);
+        }, ms);
       })
       return promise;
     }
@@ -20,10 +23,17 @@
     timeout(1000, 'the first one').then((data) => {
       console.log(data);
       return timeout(2000, 'the secone one');
-    }).then((value) => {
-      console.log(value);
+    }).then((data) => {
+      console.log(data);
+      return timeout(3000, 'the third one');
+    }).then((data) => {
+      console.log(data);
     })
 
+    const p = Promise.all([timeout(1000, '1'), timeout(2000, '2'), timeout(3000, '3')]);
+    p.then((res) => {
+      console.log(res);
+    })
     // function a() {
     //   return new Promise(function (resolve, reject) {　　　　
     //     setTimeout(function () {

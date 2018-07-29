@@ -14,12 +14,12 @@
     </form>
     <h3 v-bind="number"></h3>
   </div>
-  <script src='js/observer.js'></script>
+  <script src='index.js'></script>
   <script>
     window.onload = function() {
-      const data = {
-        name: 'renyujuan'
-      }
+      // const data = {
+      //   name: 'renyujuan'
+      // }
       /* 栈溢出 */
       // for (let attr in data) {
       //   Object.defineProperty(data, attr, {
@@ -35,35 +35,29 @@
       //     }
       //   });
       // }
-      for (let attr in data) {
-        let value = data[attr];
-        Object.defineProperty(data, attr, {
-          configurable: true,
-          enumerable: true,
-          get: function() {
-            return value;
-          },
-          set: function(newVal) {
-            console.log(`${attr}值修改了`);
-            value = newVal;
-          }
-        });
-      }
-      console.log(Object.getOwnPropertyDescriptor(data, 'name'));
-      data.name = 'ren';
-      // var app = new myVue({
-      //   el:'#app',
-      //   data: {
-      //     number: 0
-      //   },
-      //   methods: {
-      //     increment: function() {
-      //       console.log('increment方法调用了');
-      //       console.log(this);
-      //       this.number += 2;
+      // for (let attr in data) {
+      //   let value = data[attr];
+      //   Object.defineProperty(data, attr, {
+      //     configurable: true,
+      //     enumerable: true,
+      //     get: function() {
+      //       return value;
+      //     },
+      //     set: function(newVal) {
+      //       console.log(`${attr}值修改了`);
+      //       value = newVal;
       //     }
-      //   }
-      // });
+      //   });
+      // }
+      // console.log(Object.getOwnPropertyDescriptor(data, 'name'));
+      // data.name = 'ren';
+      var app = new Vue({
+        el:'#app',
+        data: {
+          number: 0
+        }
+      });
+      app.$data.number = 1;
     }
   </script>
 </body>

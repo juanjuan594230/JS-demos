@@ -8,9 +8,13 @@ const defaultOptions = {
   param: 'callback'
 }
 
+function isEmptyObj(obj) {
+  return JSON.stringify(obj) === '{}';
+}
+
 function doNothing() {}
 
-function pjsonp(url, params = {}, options) {
+function pjsonp(url, params = {}, options = {}) {
   if (!options) {
     options = params;
     params = {};
@@ -72,3 +76,64 @@ function pjsonp(url, params = {}, options) {
 }
 
 pjsonp('http://example.com/ip');
+
+
+// data为可选，url & options为必须
+function _pjsonp(url, data = {}, options = {}) {
+  
+  if (isEmptyObj(options) && !isEmptyObj(data)) {
+    options = data;
+    data = {};
+  }
+
+  options = Object.assign({}, defaultOptions, options);
+  const callbackName = options.name || options.prefix + uid++;
+
+  function clean() {
+    script.parentNode && script.parentNode.removeChild(script)
+    timer && clearTimeout(timer)
+    window[callbackName] = doNothing // use nothing function instead of null to avoid crash
+  }
+
+  let timer,
+      script,
+      target;
+
+  // 拼接url
+  url += url.indexOf('?') > 0 ? '' : '?';
+  for (let attr in data) {
+    if (data.hasOwnProperty(attr)) {
+      url += `&${enc(attr)}=${enc(data[attr])}`;
+    }
+  }
+  url += `&${options.param}=${enc(callbackName)}`;
+  url = url.replace('?&', '?');
+
+  // create script 
+  target = document.body;
+  script = document.createElement('script');
+  script.setAttribute('type', 'text/javascript');
+  script.src = url;
+  target.appendChild(script);
+
+  const promise = new Promise((resolve, reject) => {
+    window[callbackName] = function(data) {
+      clean();
+      resolve(data);
+    }
+
+    if (options.timeout) {
+      clean();
+      timer = setTimeout(() => {
+        reject('[Error] Time out.');
+      }, options.timeout);
+    }
+
+    script.onerror = function() {
+      clean();
+      reject('load error');
+    }
+  });
+  
+  return promise;
+}
