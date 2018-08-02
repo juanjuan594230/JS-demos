@@ -136,8 +136,6 @@ function getIndex(arr, val) {
   return -1;
 }
 
-console.log(getIndex([5,3,8,6], 3));
-
 function _noName(pre, vin) {
   if (pre.length <= 1) {
     return pre.length === 0 ? null : new Binarytree(pre[0]);
