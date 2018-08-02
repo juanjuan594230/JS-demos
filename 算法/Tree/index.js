@@ -33,14 +33,14 @@ const A = new Binarytree('1', B, C);
 //   }
 // }
 
-function preorder(root) {
+/* function preorder(root) {
   if (!root) {
     return;
   }
   console.log(root.value);
   preorder(root.left);
   preorder(root.right);
-}
+} */
 
 // 中序遍历二叉树
 // function inOrder(root) {
@@ -71,14 +71,14 @@ function preorder(root) {
 // }
 
 // ABDHIEJCFKG
-preorder(A);
+// preorder(A);
 // // HDIBEJAFKCG
 // inOrder(A);
 // // HIDJEBKFGCA
 // nextOrder(A);
 
 // 二叉树的高度
-function getTreeHeight(root) {
+/* function getTreeHeight(root) {
   if (!root) {
     return 0;
   }
@@ -88,10 +88,10 @@ function getTreeHeight(root) {
 }
 
 console.log(getTreeHeight(A)); 
-console.log(A);
+console.log(A); */
 
 // 复制二叉树
-function deepClone(root, obj = {}) {
+/* function deepClone(root, obj = {}) {
   for (let attr in root) {
     if (root.hasOwnProperty(attr)) {
       if (typeof root[attr] === 'object' && root[attr]) {
@@ -122,8 +122,51 @@ function clone(root, newRoot) {
 
 let _A = new Binarytree();
 clone(A, _A);
-console.log(_A);
+console.log(_A); */
 
+/* 已知一颗二叉树的前序和中序遍历顺序，构建这颗二叉树 */
+const pre = [1,2,4,7,3,5,6,8];
+const vin = [4,7,2,1,5,3,8,6];
+function getIndex(arr, val) {
+  for (let i = 0, len = arr.length; i < len; i++) {
+    if (arr[i] === val) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+console.log(getIndex([5,3,8,6], 3));
+
+function _noName(pre, vin) {
+  if (pre.length <= 1) {
+    return pre.length === 0 ? null : new Binarytree(pre[0]);
+  }
+  let rootIndex = 0,
+        vinStart = 0,
+        vinEnd = vin.length;
+  const rootVal = pre[rootIndex];
+  const root = new Binarytree(rootVal);
+  // 后续遍历数组中寻找根节点的位置
+  const index = getIndex(vin, rootVal);
+  const vinleft = vin.slice(vinStart, index);
+  const preLeft = pre.slice(rootIndex + 1, rootIndex + vinleft.length + 1);
+  const vinright = vin.slice(index + 1);
+  const preright = pre.slice(rootIndex + vinleft.length + 1, vinEnd);
+  root.left = _noName(preLeft, vinleft);
+  root.right = _noName(preright, vinright)
+  return root;
+}
+
+function reConstructBinaryTree(pre, vin)
+{
+    if (pre.length <= 1) {
+      return pre.length === 0 ? null : new Binarytree(pre[0]);
+    }
+    return _noName(pre, vin);
+}
+
+console.log(reConstructBinaryTree(pre, vin));
 /* 二叉树上寻找节点第K小的数 */
 
 

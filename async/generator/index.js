@@ -81,7 +81,7 @@ const gList = gen();
 gList.next(); */
 
 /* next yield 参数传递 */
-function* gen1() {
+/* function* gen1() {
   const a = yield 100;
   console.log(a);
   const b = yield 200;
@@ -95,4 +95,66 @@ console.log(g1.next());       // {value: 100, done: 'false'}
 // 有一个要点需要注意，就g.next('aaa')是将'aaa'传递给上一个已经执行完了的yield语句前面的变量，而不是即将执行的yield前面的变量。
 console.log(g1.next('aaa'));  // {value: 200, done: 'false'}   
 console.log(g1.next('bbb'));  // {value: 300, done: 'false'}
-console.log(g1.next('ccc'));  // {value: undefined, done: 'false'}
+console.log(g1.next('ccc'));  // {value: undefined, done: 'false'} */
+
+
+/* 菲波那切数列 */
+/* function* fibonacci() {
+  let [prev, curr] = [0, 1]
+  // 相当于为变量赋值 属于ES6的解构赋值
+  // let prev = 0,
+  //     curr = 1;
+  while(true) {
+      [prev, curr] = [curr, prev + curr]
+      // 将中间值通过 yield 返回，并且保留函数执行的状态，因此可以非常简单的实现 fibonacci
+      yield curr
+  }
+}
+// 使用for...of遍历iterator对象，可以直接将其值获取出来。这里的“值”就对应着调用next()返回的结果的value属性
+// n 就是iteraotr调用next()返回的对象的value属性值，如：{value:..., done: false}
+for (let n of fibonacci()) {
+  if (n > 1000) {
+      break
+  }
+  console.log(n)
+}
+ */
+
+ /* yield* 语句 */
+//  有两个generator语句，想要在第一个中包含第二个，如下：
+/* function* gen2() {
+  yield 'a';
+  yield 'b';
+}
+function* gen3() {
+  yield 'x';
+  yield 'y';
+}
+
+// 针对上面两个generetor，需求是一次输出 a, x, y, b
+// for of 实现
+for (let n of gen2()) {
+  console.log(n);
+  if (n === 'b') {
+    break;
+  }
+  for (let m of gen3()) {
+    console.log(m);
+  }
+} */ 
+
+// yield* 实现
+function* gen2() {
+  yield 'a';
+  // yield* 后面跟一个generator，而且会将里面的yield按照规则一步步来执行。
+  yield* gen3();
+  yield 'b';
+}
+function* gen3() {
+  yield 'x';
+  yield 'y';
+}
+
+for (let value of gen2()) {
+  console.log(value);
+}
