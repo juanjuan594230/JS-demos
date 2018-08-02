@@ -68,7 +68,7 @@ function FindKthToTail(head, k)
     return next;
 }
 
-console.log(FindKthToTail(first, 1));
+// console.log(FindKthToTail(first, 1));
 
 // console.log(getNodeK1(first, 5));
 
@@ -161,3 +161,35 @@ function deleteRepeat(head) {
     node = nextNode;
   }
 }
+
+// 合并两个有序链表
+const d = new LinkList(8, null);
+const c = new LinkList(7, d);
+const b = new LinkList(3, c);
+const a = new LinkList(1, b);
+
+const _e = new LinkList(10, null)
+const _d = new LinkList(9, _e);
+const _c = new LinkList(7, _d);
+const _b = new LinkList(4, _c);
+const _a = new LinkList(2, _b);
+function Merge(pHead1, pHead2)
+{
+    // 一个为null的情况
+    if (!pHead1) {
+        return pHead2;
+    } else if (!pHead2) {
+        return pHead1;
+    }
+    let mergeHead = null;
+    if (pHead1.value <= pHead2.value) {
+      mergeHead = pHead1;
+      mergeHead.next = Merge(pHead1.next, pHead2);
+    } else {
+      mergeHead = pHead2;
+      mergeHead.next = Merge(pHead1, pHead2.next);
+    }
+    return mergeHead;
+}
+
+console.log(Merge(a, _a));

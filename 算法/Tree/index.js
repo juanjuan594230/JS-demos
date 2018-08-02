@@ -124,6 +124,49 @@ let _A = new Binarytree();
 clone(A, _A);
 console.log(_A);
 
+const pre = [1,2,4,7,3,5,6,8];
+const vin = [4,7,2,1,5,3,8,6];
+function getIndex(arr, val) {
+  for (let i = 0, len = arr.length; i < len; i++) {
+    if (arr[i] === val) {
+      return i;
+    }
+  }
+  return -1;
+}
+ 
+function _noName(pre, vin) {
+  if (pre.length <= 1) {
+    return pre.length === 0 ? null : new Binarytree(pre[0]);
+  }
+  let rootIndex = 0,
+        vinStart = 0,
+        vinEnd = vin.length;
+  const rootVal = pre[rootIndex];
+  const root = new Binarytree(rootVal);
+  // 后续遍历数组中寻找根节点的位置
+  const index = getIndex(vin, rootVal);
+  const vinleft = vin.slice(vinStart, index);
+  const preLeft = pre.slice(rootIndex + 1, rootIndex + vinleft.length + 1);
+  const vinright = vin.slice(index + 1);
+  const preright = pre.slice(rootIndex + vinleft.length + 1, vinEnd);
+  root.left = _noName(preLeft, vinleft);
+  root.right = _noName(preright, vinright)
+  return root;
+}
+ 
+function reConstructBinaryTree(pre, vin)
+{
+    if (pre.length <= 1) {
+      return pre.length === 0 ? null : new Binarytree(pre[0]);
+    }
+    return _noName(pre, vin);
+}
+
+console.log(reConstructBinaryTree(pre, vin));
+console.log(reConstructBinaryTree([], []));
+console.log(reConstructBinaryTree([1], [1]));
+
 /* 二叉树上寻找节点第K小的数 */
 
 
