@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* 把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。 输入一个非减排序的数组的一个旋转，输出旋转数组的最小元素。 例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。 NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。 */
+    const arr = [3,4,5,1,2,3];  // [1,2,3,3,4,5]的旋转
+    const arr1 = [1,1,1,1,1,1,1,1,1];
+    const arr2 = [1,1,1,1,1,0,1,1,1,1];
+    function minNumberInRotateArray(rotateArray)
+    {
+      if (!rotateArray || !rotateArray.length) {
+        return 0;
+      }
+      let index = 0;
+      while (index < rotateArray.length - 1) {
+        if (rotateArray[index] <= rotateArray[index + 1]) {
+          index++;
+        } else {
+          return rotateArray[index + 1];
+        }
+      }
+      return rotateArray[0];
+    }
+    console.log(minNumberInRotateArray(arr));
+    console.log(minNumberInRotateArray(arr1));
+    console.log(minNumberInRotateArray(arr2));
+
+    // var findMin = function(nums) {
+    //   if (!nums || !nums.length) {
+    //     return 0;
+    //   }
+    //   let startIndex = 0;
+    //   let endIndex = nums.length - 1;
+    //   while(startIndex < endIndex) {
+    //       const midIndex = Math.floor((startIndex + endIndex) / 2);
+    //       const midValue = nums[midIndex];
+    //       const afterValue = nums[midIndex + 1];
+    //       if (midValue <= afterValue) {
+    //           startIndex = midIndex + 1;
+    //       } else {
+    //           endIndex = midIndex - 1;
+    //       }
+    //   }
+    //   return nums[startIndex + 1];
+    // };
+    // console.log(findMin(arr));
+    // console.log(findMin(arr1));
+    // console.log(findMin(arr2));
+  </script>
+</body>
+</html>

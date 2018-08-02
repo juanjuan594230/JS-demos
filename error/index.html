@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 任何没有通过try-catch处理的错误，都会触发window对象的error事件
+    window.onerror = function(errorMessage, scriptURI, lineNo, columnNo, error) {
+      console.log('errorMessage: ' + errorMessage); // 异常信息
+      console.log('scriptURI: ' + scriptURI); // 异常文件路径
+      console.log('lineNo: ' + lineNo); // 异常行号
+      console.log('columnNo: ' + columnNo); // 异常列号
+      console.log('error: ' + error); // 异常堆栈信息
+      // ...
+      // 异常上报
+    };
+    // var items = new Array(-20);  // RangeError
+    // var obj = x; // ReferenceError  作用域内没有找到该变量
+    var a = 1;
+    var b = 2;
+    // console.log(a ++ b);  // SyntaxError
+    a();  // typeError  作用域内找到了该变量，但是对该变量执行了不合理的操作
+
+    /* 当try-catch中出现错误，浏览器默认错误已经被处理，不会触发错误机制报告错误 */
+    /* try-catch适合处理那些无法控制的问题，例如引用某一个库中可能抛出异常的代码，最好将其包含在try-catch语句块中。 */
+    /* 在明白代码中可能会发生什么错误时，可以用代码的形式做容错处理，不适合用try-catch */
+    /* try {
+      var a = 1;
+      throw new Error('这是一个错误');
+    } catch (error) { 
+      alert(error.message);
+    } */
+  </script>
+  <!-- <script src="./index.js" crossorigin="anonymous"></script> -->
+</body>
+</html>
