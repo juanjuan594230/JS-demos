@@ -27,29 +27,29 @@
       }
       return rotateArray[0];
     }
-    console.log(minNumberInRotateArray(arr));
-    console.log(minNumberInRotateArray(arr1));
-    console.log(minNumberInRotateArray(arr2));
+    // console.log(minNumberInRotateArray(arr));
+    // console.log(minNumberInRotateArray(arr1));
+    // console.log(minNumberInRotateArray(arr2));
 
-    // var findMin = function(nums) {
-    //   if (!nums || !nums.length) {
-    //     return 0;
-    //   }
-    //   let startIndex = 0;
-    //   let endIndex = nums.length - 1;
-    //   while(startIndex < endIndex) {
-    //       const midIndex = Math.floor((startIndex + endIndex) / 2);
-    //       const midValue = nums[midIndex];
-    //       const afterValue = nums[midIndex + 1];
-    //       if (midValue <= afterValue) {
-    //           startIndex = midIndex + 1;
-    //       } else {
-    //           endIndex = midIndex - 1;
-    //       }
-    //   }
-    //   return nums[startIndex + 1];
-    // };
-    // console.log(findMin(arr));
+    var findMin = function(nums) {
+      if (!nums || !nums.length) {
+        return 0;
+      }
+      let startIndex = 0;
+      let endIndex = nums.length - 1;
+      while(startIndex <= endIndex) {
+          const midIndex = Math.floor((startIndex + endIndex) / 2);
+          const midValue = nums[midIndex];
+          const startValue = nums[startIndex];
+          if (midValue >= startValue) {
+              startIndex = midIndex;
+          } else {
+              endIndex = midIndex;
+          }
+      }
+      return nums[startIndex];
+    };
+    console.log(findMin(arr));
     // console.log(findMin(arr1));
     // console.log(findMin(arr2));
   </script>
